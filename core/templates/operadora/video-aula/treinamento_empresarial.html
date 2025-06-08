@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Curso: Treinamento Empresarial{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .video-sidebar {
+        background-color: #ffffff;
+        border-right: 1px solid #eaeaea;
+        height: 100%;
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+    .video-sidebar .list-group-item {
+        border: none;
+        border-bottom: 1px solid #f1f1f1;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        color: #333;
+    }
+    .video-sidebar .list-group-item:last-child {
+        border-bottom: none;
+    }
+    .video-sidebar .list-group-item.active {
+        background-color: #00A859;
+        color: #fff;
+        border-radius: 0.375rem;
+    }
+    .video-player {
+        position: relative;
+        padding-top: 56.25%;
+        height: 0;
+        background-color: #000;
+        border-radius: 0.5rem 0.5rem 0 0;
+        overflow: hidden;
+    }
+    .video-player iframe,
+    .video-player video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    .card-body {
+        background-color: #f9f9f9;
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+</style>
+
+<div class="container-fluid">
+    <h2 class="d-flex justify-content-center align-items-center fw-bold my-4 gap-2 flex-wrap">
+        <i class="fas fa-chalkboard-teacher fa-lg text-success"></i>
+        <span class="text-secondary">Curso: Treinamento Empresarial</span>
+    </h2>
+
+    <div class="row">
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="video-sidebar p-3 shadow-sm rounded-3">
+                <h6 class="mb-3 text-secondary text-uppercase">
+                    <i class="fas fa-graduation-cap me-2 text-success"></i>Aulas
+                </h6>
+                <div class="list-group" id="videoList">
+                    {% for video in videos %}
+                        <a href="#" class="list-group-item list-group-item-action {% if forloop.first %}active{% endif %}" 
+                           data-video-url="{{ video.url }}"
+                           data-video-title="{{ video.titulo }}"
+                           data-video-desc="{{ video.descricao }}">
+                            {{ forloop.counter }}. {{ video.titulo }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="video-player" id="videoContainer"></div>
+                <div class="card-body">
+                    <h5 id="videoTitle" class="card-title mb-2"></h5>
+                    <p id="videoDesc" class="card-text text-muted small"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const videoList = document.querySelectorAll('#videoList .list-group-item');
+        const container = document.getElementById('videoContainer');
+        const title = document.getElementById('videoTitle');
+        const desc = document.getElementById('videoDesc');
+
+        function loadVideo(url, videoTitle, videoDesc) {
+            let html = '';
+            if (url.includes('youtube.com/watch?v=')) {
+                const videoId = url.split('watch?v=')[1];
+                html = `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+            } else {
+                html = `<video controls><source src="${url}" type="video/mp4">Seu navegador não suporta vídeo HTML5.</video>`;
+            }
+            container.innerHTML = html;
+            title.textContent = videoTitle;
+            desc.textContent = videoDesc;
+        }
+
+        videoList.forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                videoList.forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                const url = this.getAttribute('data-video-url');
+                const title = this.getAttribute('data-video-title');
+                const desc = this.getAttribute('data-video-desc');
+                loadVideo(url, title, desc);
+            });
+        });
+
+        if (videoList.length > 0) {
+            videoList[0].click();
+        }
+    });
+</script>
+{% endblock %}

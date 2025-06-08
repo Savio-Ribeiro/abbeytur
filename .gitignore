@@ -1,0 +1,34 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Banco de dados SQLite
+*.sqlite3
+db.sqlite3
+
+# Variáveis de ambiente
+.env
+.env.*
+
+# Django migrations (opcional, se quiser controlar manualmente)
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+# Arquivos de log
+*.log
+
+# VS Code
+.vscode/
+
+# Pasta removida do Git
+django-modeladmin-reorder/

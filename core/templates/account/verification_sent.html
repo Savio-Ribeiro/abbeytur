@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h2 class="mb-0">Confirmação de E-mail</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead mb-4">
+                        Um link de confirmação foi enviado para o seu e-mail.
+                    </p>
+                    <p class="mb-4">
+                        <strong>Não encontrou o e-mail?</strong><br>
+                        Verifique também sua caixa de <span class="text-danger">spam</span> ou <span class="text-warning">lixo eletrônico</span>.
+                    </p>
+                    <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg rounded-pill">
+                        Ir para Login
+                    </a>
+                </div>
+                <div class="card-footer text-center bg-light rounded-bottom-4">
+                    <small class="text-muted">
+                        Se você digitou o e-mail errado, <a href="{% url 'account_signup' %}">cadastre-se novamente</a>.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

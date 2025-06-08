@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação de E-mail - Abbey Tur</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      color: #333333;
+      line-height: 1.6;
+    }
+    
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+    }
+    
+    .header {
+      background-color: #000000;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .logo {
+      height: 50px;
+    }
+    
+    .content {
+      padding: 40px;
+    }
+    
+    h1 {
+      color: #006994;
+      font-size: 24px;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    p {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+    
+    .button {
+      display: inline-block;
+      background-color: #006994;
+      color: #ffffff !important;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .footer {
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #666666;
+    }
+    
+    .divider {
+      height: 1px;
+      background-color: #e0e0e0;
+      margin: 30px 0;
+    }
+    
+    .highlight {
+      color: #006994;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <img src="/static/images/logo-abbeytur.png" alt="Abbey Tur" class="logo">
+    </div>
+    
+    <div class="content">
+      <h1>TESTE novo</h1>
+      
+      <p>Olá <span class="highlight">{{ user.first_name|default:"Operadora" }}</span>,</p>
+      
+      <p>Estamos muito felizes por você ter se juntado à nossa rede de operadoras parceiras. Seu cadastro foi recebido com sucesso!</p>
+      
+      <p>Para <strong>ativar sua conta</strong> e começar a explorar todos os benefícios exclusivos, clique no botão abaixo:</p>
+      
+      <div style="text-align: center;">
+        <a href="{{ activate_url }}" class="button">Confirmar E-mail</a>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <p>Se você não reconhece este cadastro ou não solicitou esta ação, por favor ignore este e-mail ou entre em contato conosco.</p>
+      
+      <p>Atenciosamente,<br>
+      <strong>Equipe Abbey Tur</strong></p>
+    </div>
+    
+    <div class="footer">
+      <p>© 2023 Abbey Tur - Todos os direitos reservados</p>
+      <p>contato@abbeytur.com.br | (11) 98844-1168</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- Carrossel Moderno Full Width com Fade -->
+<!-- Carrossel colado no menu -->
+<div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" 
+     style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 0 !important;">
+  
+  <div class="carousel-indicators">
+    {% for slide in slides %}
+    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+            class="{% if forloop.first %}active{% endif %}" 
+            aria-current="{% if forloop.first %}true{% endif %}" 
+            aria-label="Slide {{ forloop.counter }}"></button>
+    {% endfor %}
+  </div>
+
+  <div class="carousel-inner" style="height: 600px; margin-top: 0;">
+    {% for slide in slides %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %} h-100">
+      <img src="{{ slide.imagem.url }}" class="d-block w-100 h-100 object-fit-cover" alt="{{ slide.titulo }}">
+      <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center h-100 bg-dark bg-opacity-50 p-4">
+        <h2 class="display-4 fw-bold text-white">{{ slide.titulo }}</h2>
+        <p class="lead text-white mb-4">{{ slide.descricao }}</p>
+        <a href="#" class="btn btn-success btn-lg rounded-pill px-4">Conferir</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Controles do carrossel -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Próximo</span>
+  </button>
+</div>
+
+<!-- Resto do conteúdo dentro do container (se preferir) -->
+<div class="container">
+  <!-- Produtos em Destaque -->
+  <section class="py-5 bg-white">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for box in box_produtos %}
+    <div class="col">
+      <div class="card h-100 border border-1 border-secondary">
+        <div class="position-relative">
+          <img src="{{ box.imagem.url }}" class="card-img-top" alt="{{ box.titulo }}">
+          <span class="badge bg-primary position-absolute top-0 start-50 translate-middle-x mt-2">{{ box.get_tipo_display }}</span>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ box.titulo }}</h5>
+          <p class="card-text">{{ box.descricao }}</p>
+        </div>
+        <div class="card-footer bg-transparent border-0 d-flex justify-content-center">
+          <a href="#" class="btn btn-outline-primary rounded-pill">Conferir</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+  <!-- Call to Action -->
+  <section class="py-5 text-center bg-success text-white">
+      <h2 class="mb-4">Tenha acesso ao nosso conteúdo exclusivo totalmente gratuito</h2>
+      <a href="{% url 'account_login' %}" class="btn btn-light btn-lg rounded-pill mx-2">Fazer Login</a>
+      <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg rounded-pill mx-2">Criar meu cadastro</a>
+  </section>
+
+  <!-- Sobre nós -->
+  <!-- Quem Somos - Seção Moderna -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">Quem Somos</h2>
+    <div class="row align-items-stretch">
+      <!-- Texto Quem Somos -->
+      <div class="col-lg-6 mb-4">
+        <p class="lead text-justify">
+          <strong>Abbey Tur</strong> é uma operadora especializada em operacionalizar grupos diferenciados para agências de viagem. 
+          Fazemos parte do ecossistema do <strong>Grupo W3</strong> e possuímos operações diretas em 6 países: 
+          <strong>Israel, Itália, Emirados Árabes Unidos, Estados Unidos, Portugal e Brasil</strong>.
+        </p>
+        <p class="lead text-justify">
+          A Abbey Tur opera exclusivamente no formato <strong>B2B</strong> com agências parceiras, organizações religiosas, empresas e organizações corporativas.
+        </p>
+      </div>
+
+      <!-- Missão e Visão -->
+      <div class="col-lg-6">
+        <div class="row g-4">
+          <!-- Missão -->
+          <div class="col-12">
+            <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-bullseye text-success fs-2 me-3"></i>
+                <div>
+                  <h5 class="fw-bold mb-2">Missão</h5>
+                  <p class="mb-0">
+                    Disponibilizar operações de viagem que fujam do trivial, agreguem valor e que possam gerar experiências aos participantes, 
+                    fazendo com que nossas agências parceiras tenham um diferencial que lhes proporcione exclusividade, fidelidade e lucratividade.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visão -->
+          <div class="col-12">
+            <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-eye text-success fs-2 me-3"></i>
+                <div>
+                  <h5 class="fw-bold mb-2">Visão</h5>
+                  <p class="mb-0">
+                    Ser a operadora de viagens confiável, ética e inovadora, proporcionando viagens únicas e memoráveis aos nossos parceiros, 
+                    conectando-os a destinos incríveis e experiências exclusivas, sempre com foco na parceria à longo prazo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Unidades -->
+  <!-- Unidades -->
+<!-- Nossas Unidades - Fundo cinza e largura total -->
+<section class="bg-light" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding-bottom: 25px !important; padding-top: 25px !important">
+    <div class="container">
+        <h2 class="text-center mb-5">Nossas Unidades</h2>
+        <div class="row row-cols-1 row-cols-2 row-cols-md-4 g-4 text-center pb-0">
+            {% for unidade in unidades %}
+            <div class="col">
+                <div class="card border-0 bg-transparent">
+                    <img src="{{ unidade.imagem.url }}" class="card-img-top rounded" alt="{{ unidade.pais }}">
+                    <div class="card-body">
+                        <a href="{{ unidade.link }}">
+                            <img src="{{ unidade.logo.url }}" alt="Logo {{ unidade.pais }}" style="max-height: 40px;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (max-width: 767.98px) {
+        /* Ajuste para 2 colunas no mobile */
+        .row-cols-2 > * {
+            flex: 0 0 auto;
+            width: 50%;
+        }
+        
+        /* Remove todo o padding e margin para encostar no footer */
+        section.bg-light {
+            padding-top: 2rem !important; /* Mantém apenas o padding superior */
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        
+        /* Ajusta o grid gap para mobile */
+        .g-4 {
+            --bs-gutter-y: 1rem;
+            --bs-gutter-x: 1rem;
+        }
+    }
+</style>
+
+<!-- Divisor - Newsletter com cantos arredondados -->
+<section class="bg-primary text-white py-4 mt-4 mt-md-5 rounded-3" style="border-radius: 10px !important;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-3 mb-lg-0">
+                <h5 class="mb-1">Receba nossas ofertas exclusivas</h5>
+                <p class="small mb-0">Cadastre-se e receba os melhores pacotes</p>
+            </div>
+            <div class="col-lg-5 mb-3 mb-lg-0">
+                <form class="input-group">
+                    <input type="email" class="form-control rounded-start" placeholder="Seu melhor e-mail" style="border-radius: 8px 0 0 8px !important;">
+                    <button class="btn btn-success rounded-end" type="submit" style="border-radius: 0 8px 8px 0 !important;">Cadastrar</button>
+                </form>
+            </div>
+            <div class="col-lg-2 text-center text-lg-end">
+                <a href="tel:+5511999999999" class="text-white text-decoration-none">
+                    <i class="bi bi-telephone-fill me-2"></i> (11) 99999-9999
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+{% endblock %}

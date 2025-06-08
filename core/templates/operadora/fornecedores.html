@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Fornecedores{% endblock %}
+
+{% block content %}
+<style>
+    .fornecedor-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1rem;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .fornecedor-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .fornecedor-pais {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #0d6efd;
+        background: #eaf1ff;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+        z-index: 1;
+    }
+
+    .logo-box {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 1rem;
+        border-right: 1px solid #eaeaea;
+    }
+
+    .logo-img {
+        max-height: 60px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .text-box {
+        flex: 1;
+        padding-left: 1rem;
+        text-align: left;
+    }
+
+    .fornecedor-nome {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #212529;
+        margin-bottom: 0.4rem;
+    }
+
+    .btn-site {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #198754;
+        text-decoration: none;
+    }
+
+    .btn-site:hover {
+        text-decoration: underline;
+        color: #145c2f;
+    }
+
+    /* MOBILE ajustes */
+    @media (max-width: 767.98px) {
+        .fornecedor-card {
+            flex-direction: row;
+            padding-top: 2rem;
+        }
+
+        .logo-box {
+            border-right: 1px solid #eaeaea;
+            padding-right: 1rem;
+            border-bottom: none;
+        }
+
+        .text-box {
+            padding-left: 1rem;
+            text-align: center;
+        }
+
+        .text-box .fornecedor-nome,
+        .text-box .btn-site {
+            text-align: center;
+            display: block;
+        }
+
+        .fornecedor-pais {
+            top: 0;
+        }
+    }
+
+    /* DIVISOR ENTRE LINHAS */
+    .row-divider > .col:nth-child(n+4) {
+        border-top: 1px solid #eaeaea;
+        padding-top: 1.5rem;
+    }
+
+    @media (max-width: 991.98px) {
+        .row-divider > .col:nth-child(n+3) {
+            border-top: 1px solid #eaeaea;
+            padding-top: 1.5rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .row-divider > .col:nth-child(n+3) {
+            border-top: 1px solid #eaeaea;
+            padding-top: 1.5rem;
+        }
+    }
+</style>
+
+{% if banner %}
+<div class="mb-4">
+    {% if banner.banner_pc %}
+        <img src="{{ banner.banner_pc.url }}" class="img-fluid w-100 d-none d-md-block rounded" alt="Banner PC">
+    {% endif %}
+    {% if banner.banner_mobile %}
+        <img src="{{ banner.banner_mobile.url }}" class="img-fluid w-100 d-block d-md-none rounded" alt="Banner Mobile">
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="container py-5">
+    <h2 class="text-center fw-bold mb-5 text-dark">
+        <i class="fas fa-handshake text-success me-2"></i> Nossos Fornecedores
+    </h2>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 row-divider">
+        {% for fornecedor in fornecedores %}
+        <div class="col">
+            <div class="fornecedor-card position-relative">
+                {% if fornecedor.pais %}
+                    <div class="fornecedor-pais">{{ fornecedor.pais }}</div>
+                {% endif %}
+                <div class="logo-box">
+                    <img src="{{ fornecedor.logo.url }}" alt="{{ fornecedor.nome }}" class="logo-img">
+                </div>
+                <div class="text-box">
+                    <div class="fornecedor-nome">{{ fornecedor.nome }}</div>
+                    {% if fornecedor.website %}
+                        <div><a href="{{ fornecedor.website }}" target="_blank" class="btn-site">Visitar site</a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

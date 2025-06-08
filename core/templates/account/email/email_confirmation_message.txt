@@ -1,0 +1,7 @@
+Olá, queridoooooo {{ user.username }},
+
+Obrigado por se registrar. Por favor, clique no link abaixo para confirmar seu e-mail:
+
+{{ activate_url }}
+
+Se você não solicitou esta conta, ignore este e-mail.

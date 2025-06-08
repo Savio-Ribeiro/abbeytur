@@ -1,0 +1,225 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border border-secondary rounded">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center">Cadastro de Operadora</h3>
+                </div>
+                <div class="card-body">
+                    <!--LOGICA PARA CONFERIR ERRO-->
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <!--FIM DA LOGICA PARA CONFERIR ERRO-->
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Dados da Empresa -->
+                        <h5>Dados da Empresa</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form.cnpj|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.razao_social|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.nome_fantasia|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                {{ form.data_abertura|as_crispy_field }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form.cep|as_crispy_field }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ form.numero|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.complemento|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <input type="text" id="id_logradouro" name="logradouro" class="form-control rounded-pill" placeholder="Logradouro" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="id_bairro" name="bairro" class="form-control rounded-pill" placeholder="Bairro" required>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="id_cidade" name="cidade" class="form-control rounded-pill" placeholder="Cidade" required>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" id="id_uf" name="uf" class="form-control rounded-pill" placeholder="UF" maxlength="2" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                {{ form.site|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.facebook|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.instagram|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form.fonte_conhecimento|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.logomarca|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h5>Dados do Representante</h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.nome_representante|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email_representante|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                {{ form.telefone_comercial1|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.telefone_comercial2|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.celular_representante|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form.data_nascimento_representante|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h5>Dados de Acesso</h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email_confirm|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form.password1|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.password2|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <div>Já tem uma conta? <a href="{% url 'account_login' %}">Faça login</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+<script>
+$('#id_cnpj').on('blur', function(){
+    var cnpj = $(this).val().replace(/\D/g, '');
+    if(cnpj.length === 14){
+        $.ajax({
+            url: 'https://www.receitaws.com.br/v1/cnpj/' + cnpj,
+            type: 'GET',
+            dataType: 'jsonp',
+            success: function(data) {
+                if(data.status === 'ERROR'){
+                    alert('CNPJ não encontrado ou inválido na Receita: ' + data.message);
+                } else {
+                    $('#id_razao_social').val(data.nome);
+                    $('#id_nome_fantasia').val(data.fantasia || data.nome);
+                    $('#id_logradouro').val(data.logradouro);
+                    $('#id_bairro').val(data.bairro);
+                    $('#id_cidade').val(data.municipio);
+                    $('#id_uf').val(data.uf);
+                    $('#id_cep').val(data.cep.replace('.', '').replace('-', ''));
+                }
+            },
+            error: function() {
+                alert('Erro na consulta da Receita Federal.');
+            }
+        });
+    }
+});
+
+
+
+$(document).ready(function(){
+    $('#id_cnpj').mask('00.000.000/0000-00');
+    $('#id_cep').mask('00000-000');
+    $('#id_telefone_comercial1').mask('(00) 0000-0000');
+    $('#id_telefone_comercial2').mask('(00) 0000-0000');
+    $('#id_celular_representante').mask('(00) 00000-0000');
+
+    $('#id_cep').on('blur', function(){
+        var cep = $(this).val().replace(/\D/g, '');
+        if(cep.length === 8){
+            $.getJSON('https://viacep.com.br/ws/' + cep + '/json/', function(data){
+                if(!data.erro){
+                    $('#id_logradouro').val(data.logradouro);
+                    $('#id_bairro').val(data.bairro);
+                    $('#id_cidade').val(data.localidade);
+                    $('#id_uf').val(data.uf);
+                } else {
+                    alert('CEP não encontrado');
+                }
+            }).fail(function(){
+                alert('Erro ao buscar o CEP');
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

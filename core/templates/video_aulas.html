@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Video Aulas</h1>
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                {% if categoria == 'terra_santa' %}Terra Santa{% elif categoria == 'treinamento' %}Treinamento Empresarial{% else %}{{ categoria }}{% endif %}
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="?categoria=terra_santa">Terra Santa</a></li>
+                <li><a class="dropdown-item" href="?categoria=treinamento">Treinamento Empresarial</a></li>
+                <li><a class="dropdown-item" href="?categoria=dubai">Dubai</a></li>
+                <li><a class="dropdown-item" href="?categoria=eua">Estados Unidos</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for video in videos %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="ratio ratio-16x9">
+                    <iframe src="{{ video.url }}" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ video.titulo }}</h5>
+                    <p class="card-text">{{ video.descricao }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Publicado em {{ video.data_publicacao|date:"d/m/Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

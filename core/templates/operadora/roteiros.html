@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Roteiros para Download{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .roteiro-card {
+        transition: transform 0.3s ease;
+    }
+    .roteiro-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .download-icon {
+        font-size: 2rem;
+        color: #00A859;
+    }
+    .roteiro-icon {
+        font-size: 3rem;
+        color: #26a9e0;
+    }
+    .titulo{
+        color: #6c757d;
+    }
+
+    @media (min-width: 1200px) {
+        .col-xl-2-4 {
+            flex: 0 0 auto;
+            width: 20%;
+        }
+    }
+</style>
+{% if banner %}
+<div class="mb-4">
+    <!-- Banner para Desktop e Tablet -->
+    {% if banner.banner_pc %}
+        <img src="{{ banner.banner_pc.url }}" alt="Banner Roteiros PC" class="w-100 d-none d-md-block rounded">
+    {% endif %}
+
+    <!-- Banner para Mobile -->
+    {% if banner.banner_mobile %}
+        <img src="{{ banner.banner_mobile.url }}" alt="Banner Roteiros Mobile" class="w-100 d-block d-md-none rounded">
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="container my-5">
+    <h2 class="text-center titulo fw-bold mb-4">
+        <i class="fas fa-map-marked-alt me-2 text-success"></i>Roteiros para Download
+    </h2>
+
+    <div class="row justify-content-center">
+        {% for roteiro in roteiros %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2-4 mb-4">
+            <div class="card h-100 shadow-sm roteiro-card border-0 text-center">
+                {% if roteiro.thumbnail %}
+                    <img src="{{ roteiro.thumbnail.url }}" class="card-img-top" alt="{{ roteiro.titulo }}">
+                {% elif roteiro.icone %}
+                    <div class="pt-4">
+                        <i class="{{ roteiro.icone }} roteiro-icon"></i>
+                    </div>
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title fw-bold">{{ roteiro.titulo }}</h6>
+                    {% if roteiro.descricao %}
+                        <p class="card-text small text-muted">{{ roteiro.descricao|truncatewords:15 }}</p>
+                    {% endif %}
+                    <div class="mt-auto">
+                        <a href="{{ roteiro.arquivo.url }}" class="btn btn-outline-success w-100" download>
+                            <i class="fas fa-file-download me-2"></i>Baixar PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <p class="text-center text-muted">Nenhum roteiro disponível no momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
