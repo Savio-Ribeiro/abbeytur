@@ -77,7 +77,6 @@ def register(request):
     return render(request, 'account/signup.html', {'form': form})
 
 @login_required
-@login_required
 def dashboard(request):
     try:
         operadora = request.user.operadora
