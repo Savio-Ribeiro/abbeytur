@@ -83,103 +83,475 @@
     </div>
     {% endif %}
   </section>
+  <!-- Fim da seção dos produtos -->
 
-  <!-- Call to Action Moderno -->
-  <section class="py-5 my-5 bg-light rounded-4">
-    <div class="container px-4">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <h2 class="fw-bold mb-3">Acesso Exclusivo para Agências Parceiras</h2>
-          <p class="lead mb-4">Tenha acesso a pacotes diferenciados e condições especiais</p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href="{% url 'account_login' %}" class="btn btn-success btn-lg px-4">
-              <i class="bi bi-box-arrow-in-right me-2"></i>Login
-            </a>
-            <a href="{% url 'register' %}" class="btn btn-outline-success btn-lg px-4">
-              <i class="bi bi-person-plus me-2"></i>Cadastre-se
-            </a>
-          </div>
+  <!-- Call to Action Refinado -->
+<section class="cta-custom py-4 my-4">
+  <div class="container px-3">
+    <div class="row align-items-center gx-4">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="cta-title">Acesso Exclusivo para Agências Parceiras</h2>
+        <p class="cta-subtitle">Tenha acesso a pacotes diferenciados e condições especiais projetados para o seu sucesso</p>
+        
+        <div class="cta-buttons">
+          <a href="{% url 'account_login' %}" class="btn cta-btn-primary">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Acessar Plataforma
+          </a>
+          <a href="{% url 'register' %}" class="btn cta-btn-secondary">
+            <i class="bi bi-person-plus me-2"></i>Tornar-se Parceiro
+          </a>
         </div>
-        <div class="col-lg-6">
-          <img src="{% static 'images/cta-image.jpg' %}" class="img-fluid rounded-3 shadow" alt="Agências Parceiras">
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="cta-image-wrapper">
+          <img src="{% static 'images/calltoaction.jpg' %}" alt="Benefícios para Agências Parceiras" class="cta-image">
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Seção Quem Somos (mantida) -->
-  <section class="py-5 bg-white">
-    <div class="container">
-      <h2 class="text-center mb-5 fw-bold">Quem Somos</h2>
-      <div class="row align-items-stretch">
-        <div class="col-lg-6 mb-4">
-          <p class="lead text-justify">
-            <strong>Abbey Tur</strong> é uma operadora especializada em operacionalizar grupos diferenciados para agências de viagem. 
-            Fazemos parte do ecossistema do <strong>Grupo W3</strong> e possuímos operações diretas em 6 países: 
+<style>
+  /* Variáveis customizáveis - Edite estas cores */
+  :root {
+    --cta-bg-color: #f8f9fa;
+    --cta-text-color: #212529;
+    --cta-subtext-color: #6c757d;
+    --cta-primary-btn: #212529;
+    --cta-primary-text: #ffffff;
+    --cta-secondary-btn: transparent;
+    --cta-secondary-text: #212529;
+    --cta-border-color: #212529;
+    --cta-border-radius: 12px;
+    --cta-image-radius: 12px;
+    --cta-spacing: 2rem;
+  }
+
+  /* Estilos base */
+  .cta-custom {
+    background-color: var(--cta-bg-color);
+    border-radius: var(--cta-border-radius);
+    padding: var(--cta-spacing);
+  }
+
+  .cta-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--cta-text-color);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .cta-subtitle {
+    font-size: 1.3rem;
+    color: var(--cta-subtext-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn-primary {
+    background-color: var(--cta-primary-btn);
+    color: var(--cta-primary-text);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--cta-border-radius);
+    border: 2px solid var(--cta-primary-btn);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .cta-btn-secondary {
+    background-color: var(--cta-secondary-btn);
+    color: var(--cta-secondary-text);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--cta-border-radius);
+    border: 2px solid var(--cta-border-color);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .cta-image-wrapper {
+    border-radius: var(--cta-image-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .cta-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Efeitos hover */
+  .cta-btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .cta-btn-secondary:hover {
+    background-color: rgba(0,0,0,0.03);
+  }
+
+  @media (max-width: 992px) {
+    .cta-custom {
+      padding: 1.5rem;
+    }
+    .cta-title {
+      font-size: 1.3rem;
+    }
+  }
+</style>
+<!-- Fim call to action -->
+
+  <!-- Seção Quem Somos - Design Moderno -->
+<section class="about-section py-5">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-subtitle">Conheça nossa história</span>
+      <h2 class="section-title">Quem Somos</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="row g-5 align-items-center">
+      <!-- Coluna com imagem criativa -->
+      <div class="col-lg-6">
+        <div class="about-image-container">
+          <div class="main-image">
+            <img src="{% static 'images/equipe.jpg' %}" alt="Equipe Abbey Tur" class="img-fluid rounded-4">
+          </div>
+          <div class="floating-element element-1">
+            <img src="{% static 'images/map-icon.png' %}" alt="Global Presence" width="60">
+            <span>6 países</span>
+          </div>
+          <div class="floating-element element-2">
+            <div class="years-badge">
+              <span>+15</span>
+              <small>anos de experiência</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- quem somos -->
+      <div class="col-lg-6">
+        <div class="about-content">
+          <h3 class="about-heading">Abbey Tur <br> <span>Especialistas em Experiências Únicas</span></h3>
+          <p class="about-text">
+            Fazemos parte do ecossistema do <strong>Grupo W3</strong> e operamos diretamente em 6 países estratégicos: 
             <strong>Israel, Itália, Emirados Árabes Unidos, Estados Unidos, Portugal e Brasil</strong>.
           </p>
-          <p class="lead text-justify">
-            A Abbey Tur opera exclusivamente no formato <strong>B2B</strong> com agências parceiras, organizações religiosas, empresas e organizações corporativas.
+          <p class="about-text">
+            Nossa operação exclusivamente <strong>B2B</strong> atende agências parceiras, organizações religiosas 
+            e corporativas com pacotes diferenciados e experiências memoráveis.
           </p>
-        </div>
 
-        <div class="col-lg-6">
-          <div class="row g-4">
-            <div class="col-12">
-              <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
-                <div class="d-flex align-items-start">
-                  <i class="bi bi-bullseye text-success fs-2 me-3"></i>
-                  <div>
-                    <h5 class="fw-bold mb-2">Missão</h5>
-                    <p class="mb-0">
-                      Disponibilizar operações de viagem que fujam do trivial, agreguem valor e que possam gerar experiências aos participantes, 
-                      fazendo com que nossas agências parceiras tenham um diferencial que lhes proporcione exclusividade, fidelidade e lucratividade.
-                    </p>
-                  </div>
-                </div>
+          <!-- Cards de Missão e Visão -->
+          <div class="about-cards mt-4">
+            <div class="about-card mission-card">
+              <div class="card-icon">
+                <i class="bi bi-rocket"></i>
+              </div>
+              <div class="card-content">
+                <h4>Nossa Missão</h4>
+                <p>Criar operações de viagem que transcendem o convencional, oferecendo experiências únicas que proporcionam diferencial competitivo, fidelização e rentabilidade para nossos parceiros.</p>
               </div>
             </div>
 
-            <div class="col-12">
-              <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
-                <div class="d-flex align-items-start">
-                  <i class="bi bi-eye text-success fs-2 me-3"></i>
-                  <div>
-                    <h5 class="fw-bold mb-2">Visão</h5>
-                    <p class="mb-0">
-                      Ser a operadora de viagens confiável, ética e inovadora, proporcionando viagens únicas e memoráveis aos nossos parceiros, 
-                      conectando-os a destinos incríveis e experiências exclusivas, sempre com foco na parceria à longo prazo.
-                    </p>
-                  </div>
-                </div>
+            <div class="about-card vision-card">
+              <div class="card-icon">
+                <i class="bi bi-eye"></i>
+              </div>
+              <div class="card-content">
+                <h4>Nossa Visão</h4>
+                <p>Ser reconhecida como a operadora mais inovadora e confiável do mercado, transformando cada viagem em uma conexão autêntica com destinos extraordinários.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<style>
+  /* Estilos base */
+  .about-section {
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-header {
+    position: relative;
+  }
+
+  .section-subtitle {
+    display: block;
+    color: #6c757d;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #198754, #0d6efd);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* Container da imagem */
+  .about-image-container {
+    position: relative;
+    padding: 20px;
+  }
+
+  .main-image {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .main-image:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Elementos flutuantes */
+  .floating-element {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    padding: 10px 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .element-1 {
+    top: -20px;
+    right: 0;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .element-2 {
+    bottom: 20px;
+    left: -20px;
+    animation: float 5s ease-in-out infinite 1s;
+  }
+
+  .years-badge {
+    text-align: center;
+  }
+
+  .years-badge span {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #198754;
+    display: block;
+    line-height: 1;
+  }
+
+  .years-badge small {
+    font-size: 0.8rem;
+    color: #6c757d;
+  }
+
+  /* Conteúdo */
+  .about-heading {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #212529;
+  }
+
+  .about-heading span {
+    color: #198754;
+  }
+
+  .about-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #495057;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Cards */
+  .about-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .about-card {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .card-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #198754, #0d6efd);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .card-content h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #212529;
+  }
+
+  .card-content p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* Animações */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Responsivo */
+  @media (max-width: 992px) {
+    .about-image-container {
+      margin-bottom: 3rem;
+    }
+    
+    .floating-element {
+      position: relative;
+      top: auto;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      margin-bottom: 1rem;
+      animation: none;
+    }
+    
+    .about-card {
+      flex-direction: column;
+    }
+    
+    .card-icon {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+<!-- Fim quem somos -->
 
   <!-- Seção Unidades (mantida) -->
-  <section class="bg-light py-5" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
-    <div class="container">
-      <h2 class="text-center mb-5">Nossas Unidades</h2>
-      <div class="row row-cols-1 row-cols-2 row-cols-md-4 g-4 text-center pb-0">
-        {% for unidade in unidades %}
-        <div class="col">
-          <div class="card border-0 bg-transparent">
-            <img src="{{ unidade.imagem.url }}" class="card-img-top rounded" alt="{{ unidade.pais }}">
-            <div class="card-body">
-              <a href="{{ unidade.link }}">
-                <img src="{{ unidade.logo.url }}" alt="Logo {{ unidade.pais }}" style="max-height: 40px;">
-              </a>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
+  <section class="units-section py-5" style="background-color: #f8f9fa; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold mb-3">Nossas Unidades Globais</h2>
+      <div class="d-flex justify-content-center">
+        <div class="border-bottom border-3 border-primary" style="width: 80px;"></div>
       </div>
     </div>
-  </section>
+
+    <div class="row g-4">
+      {% for unidade in unidades %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{{ unidade.link }}" class="unit-card text-decoration-none">
+          <div class="card h-100 border-0 shadow-sm overflow-hidden transition-all">
+            <div class="ratio ratio-4x3">
+              <img src="{{ unidade.imagem.url }}" class="object-fit-cover" alt="{{ unidade.pais }}" loading="lazy">
+            </div>
+            <div class="card-body text-center p-3">
+              <div class="d-flex justify-content-center align-items-center" style="height: 50px;">
+                <img src="{{ unidade.logo.url }}" alt="Logo {{ unidade.pais }}" class="img-fluid mh-100" style="max-height: 40px; width: auto;">
+              </div>
+              <div class="mt-2">
+                <h5 class="mb-0 text-dark fw-semibold">{{ unidade.cidade }}</h5>
+                <small class="text-muted">{{ unidade.pais }}</small>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if unidades|length > 8 %}
+    <div class="text-center mt-5">
+      <button class="btn btn-outline-primary px-4 rounded-pill">
+        Ver todas as unidades
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+  
+  .unit-card:hover .card {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    border-color: rgba(0,0,0,0.1);
+  }
+  
+  .unit-card:hover h5 {
+    color: #0d6efd !important;
+  }
+  
+  .object-fit-cover {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .units-section {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+    
+    .display-5 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+  <!-- Fim da seção nossas unidades -->
 
   <!-- Newsletter Moderna -->
   <section class="py-5">
