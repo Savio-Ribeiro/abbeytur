@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
-<!-- Carrossel Moderno Full Width com Fade -->
-<!-- Carrossel colado no menu -->
+
+<!-- Carrossel (mantido igual) -->
 <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" 
      style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 0 !important;">
   
@@ -30,7 +29,6 @@
     {% endfor %}
   </div>
 
-  <!-- Controles do carrossel -->
   <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Anterior</span>
@@ -41,166 +39,280 @@
   </button>
 </div>
 
-<!-- Resto do conteúdo dentro do container (se preferir) -->
+<!-- Carrossel (mantido igual) -->
+<div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" 
+     style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 0 !important;">
+  ...
+</div>
+
+<!-- Conteúdo principal -->
 <div class="container">
-  <!-- Produtos em Destaque -->
-  <section class="py-5 bg-white">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for box in box_produtos %}
-    <div class="col">
-      <div class="card h-100 border border-1 border-secondary">
-        <div class="position-relative">
-          <img src="{{ box.imagem.url }}" class="card-img-top" alt="{{ box.titulo }}">
-          <span class="badge bg-primary position-absolute top-0 start-50 translate-middle-x mt-2">{{ box.get_tipo_display }}</span>
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">{{ box.titulo }}</h5>
-          <p class="card-text">{{ box.descricao }}</p>
-        </div>
-        <div class="card-footer bg-transparent border-0 d-flex justify-content-center">
-          <a href="#" class="btn btn-outline-primary rounded-pill">Conferir</a>
+
+  <!-- Seção de Produtos Modernizada -->
+  <section class="py-5">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3 display-6">Nossas Soluções Exclusivas</h2>
+      <p class="lead text-muted">Descubra nossos pacotes diferenciados</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="products-container">
+      {% for box in box_produtos %}
+      <div class="col product-item">
+        <div class="card h-100 border-0 shadow hover-effect rounded-4">
+          <div class="position-relative overflow-hidden">
+            <img src="{{ box.imagem.url }}" class="card-img-top product-image" alt="{{ box.titulo }}">
+            <span class="badge bg-{{ box.tipo|lower }} position-absolute top-0 end-0 m-2">{{ box.get_tipo_display }}</span>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-capitalize">{{ box.titulo }}</h5>
+            <p class="card-text text-muted">{{ box.descricao }}</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-center">
+            <a href="#" class="btn btn-outline-primary btn-xs" style="font-size: 0.95rem; padding: 0.25rem 0.5rem;">Saiba mais</a>
+          </div>
         </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-</section>
 
-
-  <!-- Call to Action -->
-  <section class="py-5 text-center bg-success text-white">
-      <h2 class="mb-4">Tenha acesso ao nosso conteúdo exclusivo totalmente gratuito</h2>
-      <a href="{% url 'account_login' %}" class="btn btn-light btn-lg rounded-pill mx-2">Fazer Login</a>
-      <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg rounded-pill mx-2">Criar meu cadastro</a>
+    {% if box_produtos|length < box_produtos_total %}
+    <div class="text-center mt-4">
+      <button id="load-more" class="btn btn-primary px-4 py-2" data-offset="6">
+        <i class="bi bi-plus-circle me-2"></i>Carregar Mais
+      </button>
+    </div>
+    {% endif %}
   </section>
 
-  <!-- Sobre nós -->
-  <!-- Quem Somos - Seção Moderna -->
-<section class="py-5 bg-white">
-  <div class="container">
-    <h2 class="text-center mb-5 fw-bold">Quem Somos</h2>
-    <div class="row align-items-stretch">
-      <!-- Texto Quem Somos -->
-      <div class="col-lg-6 mb-4">
-        <p class="lead text-justify">
-          <strong>Abbey Tur</strong> é uma operadora especializada em operacionalizar grupos diferenciados para agências de viagem. 
-          Fazemos parte do ecossistema do <strong>Grupo W3</strong> e possuímos operações diretas em 6 países: 
-          <strong>Israel, Itália, Emirados Árabes Unidos, Estados Unidos, Portugal e Brasil</strong>.
-        </p>
-        <p class="lead text-justify">
-          A Abbey Tur opera exclusivamente no formato <strong>B2B</strong> com agências parceiras, organizações religiosas, empresas e organizações corporativas.
-        </p>
+  <!-- Call to Action Moderno -->
+  <section class="py-5 my-5 bg-light rounded-4">
+    <div class="container px-4">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="fw-bold mb-3">Acesso Exclusivo para Agências Parceiras</h2>
+          <p class="lead mb-4">Tenha acesso a pacotes diferenciados e condições especiais</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="{% url 'account_login' %}" class="btn btn-success btn-lg px-4">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Login
+            </a>
+            <a href="{% url 'register' %}" class="btn btn-outline-success btn-lg px-4">
+              <i class="bi bi-person-plus me-2"></i>Cadastre-se
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="{% static 'images/cta-image.jpg' %}" class="img-fluid rounded-3 shadow" alt="Agências Parceiras">
+        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Missão e Visão -->
-      <div class="col-lg-6">
-        <div class="row g-4">
-          <!-- Missão -->
-          <div class="col-12">
-            <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
-              <div class="d-flex align-items-start">
-                <i class="bi bi-bullseye text-success fs-2 me-3"></i>
-                <div>
-                  <h5 class="fw-bold mb-2">Missão</h5>
-                  <p class="mb-0">
-                    Disponibilizar operações de viagem que fujam do trivial, agreguem valor e que possam gerar experiências aos participantes, 
-                    fazendo com que nossas agências parceiras tenham um diferencial que lhes proporcione exclusividade, fidelidade e lucratividade.
-                  </p>
+  <!-- Seção Quem Somos (mantida) -->
+  <section class="py-5 bg-white">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Quem Somos</h2>
+      <div class="row align-items-stretch">
+        <div class="col-lg-6 mb-4">
+          <p class="lead text-justify">
+            <strong>Abbey Tur</strong> é uma operadora especializada em operacionalizar grupos diferenciados para agências de viagem. 
+            Fazemos parte do ecossistema do <strong>Grupo W3</strong> e possuímos operações diretas em 6 países: 
+            <strong>Israel, Itália, Emirados Árabes Unidos, Estados Unidos, Portugal e Brasil</strong>.
+          </p>
+          <p class="lead text-justify">
+            A Abbey Tur opera exclusivamente no formato <strong>B2B</strong> com agências parceiras, organizações religiosas, empresas e organizações corporativas.
+          </p>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-bullseye text-success fs-2 me-3"></i>
+                  <div>
+                    <h5 class="fw-bold mb-2">Missão</h5>
+                    <p class="mb-0">
+                      Disponibilizar operações de viagem que fujam do trivial, agreguem valor e que possam gerar experiências aos participantes, 
+                      fazendo com que nossas agências parceiras tenham um diferencial que lhes proporcione exclusividade, fidelidade e lucratividade.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-eye text-success fs-2 me-3"></i>
+                  <div>
+                    <h5 class="fw-bold mb-2">Visão</h5>
+                    <p class="mb-0">
+                      Ser a operadora de viagens confiável, ética e inovadora, proporcionando viagens únicas e memoráveis aos nossos parceiros, 
+                      conectando-os a destinos incríveis e experiências exclusivas, sempre com foco na parceria à longo prazo.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Visão -->
-          <div class="col-12">
-            <div class="p-4 rounded border border-success border-opacity-25 bg-white h-100">
-              <div class="d-flex align-items-start">
-                <i class="bi bi-eye text-success fs-2 me-3"></i>
-                <div>
-                  <h5 class="fw-bold mb-2">Visão</h5>
-                  <p class="mb-0">
-                    Ser a operadora de viagens confiável, ética e inovadora, proporcionando viagens únicas e memoráveis aos nossos parceiros, 
-                    conectando-os a destinos incríveis e experiências exclusivas, sempre com foco na parceria à longo prazo.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-  <!-- Unidades -->
-  <!-- Unidades -->
-<!-- Nossas Unidades - Fundo cinza e largura total -->
-<section class="bg-light" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding-bottom: 25px !important; padding-top: 25px !important">
+  <!-- Seção Unidades (mantida) -->
+  <section class="bg-light py-5" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
     <div class="container">
-        <h2 class="text-center mb-5">Nossas Unidades</h2>
-        <div class="row row-cols-1 row-cols-2 row-cols-md-4 g-4 text-center pb-0">
-            {% for unidade in unidades %}
-            <div class="col">
-                <div class="card border-0 bg-transparent">
-                    <img src="{{ unidade.imagem.url }}" class="card-img-top rounded" alt="{{ unidade.pais }}">
-                    <div class="card-body">
-                        <a href="{{ unidade.link }}">
-                            <img src="{{ unidade.logo.url }}" alt="Logo {{ unidade.pais }}" style="max-height: 40px;">
-                        </a>
-                    </div>
-                </div>
+      <h2 class="text-center mb-5">Nossas Unidades</h2>
+      <div class="row row-cols-1 row-cols-2 row-cols-md-4 g-4 text-center pb-0">
+        {% for unidade in unidades %}
+        <div class="col">
+          <div class="card border-0 bg-transparent">
+            <img src="{{ unidade.imagem.url }}" class="card-img-top rounded" alt="{{ unidade.pais }}">
+            <div class="card-body">
+              <a href="{{ unidade.link }}">
+                <img src="{{ unidade.logo.url }}" alt="Logo {{ unidade.pais }}" style="max-height: 40px;">
+              </a>
             </div>
-            {% endfor %}
+          </div>
         </div>
+        {% endfor %}
+      </div>
     </div>
-</section>
+  </section>
 
-<style>
-    @media (max-width: 767.98px) {
-        /* Ajuste para 2 colunas no mobile */
-        .row-cols-2 > * {
-            flex: 0 0 auto;
-            width: 50%;
-        }
-        
-        /* Remove todo o padding e margin para encostar no footer */
-        section.bg-light {
-            padding-top: 2rem !important; /* Mantém apenas o padding superior */
-            padding-bottom: 0 !important;
-            margin-bottom: 0 !important;
-        }
-        
-        /* Ajusta o grid gap para mobile */
-        .g-4 {
-            --bs-gutter-y: 1rem;
-            --bs-gutter-x: 1rem;
-        }
-    }
-</style>
-
-<!-- Divisor - Newsletter com cantos arredondados -->
-<section class="bg-primary text-white py-4 mt-4 mt-md-5 rounded-3" style="border-radius: 10px !important;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-5 mb-3 mb-lg-0">
-                <h5 class="mb-1">Receba nossas ofertas exclusivas</h5>
-                <p class="small mb-0">Cadastre-se e receba os melhores pacotes</p>
-            </div>
-            <div class="col-lg-5 mb-3 mb-lg-0">
-                <form class="input-group">
-                    <input type="email" class="form-control rounded-start" placeholder="Seu melhor e-mail" style="border-radius: 8px 0 0 8px !important;">
-                    <button class="btn btn-success rounded-end" type="submit" style="border-radius: 0 8px 8px 0 !important;">Cadastrar</button>
-                </form>
-            </div>
-            <div class="col-lg-2 text-center text-lg-end">
-                <a href="tel:+5511999999999" class="text-white text-decoration-none">
-                    <i class="bi bi-telephone-fill me-2"></i> (11) 99999-9999
-                </a>
-            </div>
+  <!-- Newsletter Moderna -->
+  <section class="py-5">
+    <div class="bg-primary text-white rounded-4 p-4 p-lg-5">
+      <div class="row align-items-center">
+        <div class="col-lg-5 mb-4 mb-lg-0">
+          <h3 class="fw-bold mb-2">Receba nossas ofertas exclusivas</h3>
+          <p class="mb-0">Cadastre-se e receba os melhores pacotes em primeira mão</p>
         </div>
+        <div class="col-lg-5 mb-4 mb-lg-0">
+          <form class="input-group">
+            <input type="email" class="form-control py-3" placeholder="Seu melhor e-mail">
+            <button class="btn btn-success px-4" type="submit">
+              <i class="bi bi-envelope-check me-2"></i>Enviar
+            </button>
+          </form>
+        </div>
+        <div class="col-lg-2 text-center text-lg-end">
+          <a href="tel:+5511999999999" class="text-white text-decoration-none fw-medium">
+            <i class="bi bi-telephone me-2"></i> (11) 99999-9999
+          </a>
+        </div>
+      </div>
     </div>
-</section>
-
+  </section>
 </div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .product-item .card {
+    transition: all 0.3s ease;
+    border-radius: 1rem;
+  }
+
+  .product-item .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  }
+
+  .product-image {
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .product-item .card:hover .product-image {
+    transform: scale(1.05);
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .bg-corporativo { background-color: #24a9e0 !important; color: #fff; }
+  .bg-religioso { background-color: #04a859 !important; color: #fff; }
+  .bg-intercambio { background-color: #fef112 !important; color: #000 !important; }
+  .bg-lazer { background-color: #4d5a62 !important; color: #fff; }
+
+  @media (max-width: 767.98px) {
+    .row-cols-2 > * {
+      flex: 0 0 auto;
+      width: 50%;
+    }
+    section.bg-light {
+      padding-top: 2rem !important;
+      padding-bottom: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .g-4 {
+      --bs-gutter-y: 1rem;
+      --bs-gutter-x: 1rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const loadMoreBtn = document.getElementById('load-more');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', function () {
+      const offset = parseInt(this.getAttribute('data-offset'));
+      const container = document.getElementById('products-container');
+
+      fetch(`/api/produtos/?offset=${offset}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.produtos.length > 0) {
+            data.produtos.forEach(produto => {
+              // Normaliza tipo para slug CSS-safe
+              const tipoClass = produto.tipo
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "") // Remove acentos
+                .replace(/[^a-z0-9_-]/g, "");    // Remove outros caracteres inválidos
+
+              container.innerHTML += `
+                <div class="col product-item">
+                  <div class="card h-100 border-0 shadow hover-effect rounded-4">
+                    <div class="position-relative overflow-hidden">
+                      <img src="${produto.imagem}" class="card-img-top product-image" alt="${produto.titulo}">
+                      <span class="badge bg-${tipoClass} position-absolute top-0 end-0 m-2">${produto.tipo_display}</span>
+                    </div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title fw-bold text-capitalize">${produto.titulo}</h5>
+                      <p class="card-text text-muted">${produto.descricao}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 text-center">
+                      <a href="#" class="btn btn-outline-primary btn-xs" style="font-size: 0.95rem; padding: 0.25rem 0.5rem;">Saiba mais</a>
+                    </div>
+                  </div>
+                </div>`;
+            });
+
+            this.setAttribute('data-offset', offset + 6);
+
+            if (!data.has_more || data.produtos.length < 6) {
+              this.style.display = 'none';
+            }
+          } else {
+            this.style.display = 'none';
+          }
+        });
+    });
+  }
+});
+</script>
+
+
 {% endblock %}

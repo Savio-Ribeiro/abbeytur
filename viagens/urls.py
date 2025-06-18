@@ -8,10 +8,15 @@ from allauth.account.views import LoginView
 from operadora.views import custom_logout
 from django.views.generic import RedirectView
 from operadora.views import register
+from operadora.views import load_more_products
 
 urlpatterns = [
     # Páginas públicas e restritas
     path('', operadora_views.home, name='home'),
+
+    # carregar mais da home
+    path('api/produtos/', load_more_products, name='load_more_products'),
+
     path('home/', operadora_views.home, name='home'),
     path('downloads/', operadora_views.downloads, name='downloads'),
     path('manuais/', operadora_views.manuais, name='manuais'),
@@ -44,6 +49,7 @@ urlpatterns = [
 
     # (Se você tiver mais urls específicas dentro de operadora)
     path('operadora/', include('operadora.urls')),
+
 ]
 
 # Arquivos de mídia (dev only)

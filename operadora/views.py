@@ -22,6 +22,9 @@ from allauth.account import app_settings as allauth_settings
 from allauth.account.views import SignupView
 from .forms import OperadoraRegistrationForm
 from .models import Roteiro, BannerRoteiro
+from django.http import JsonResponse
+from django.core import serializers
+import json
 
 class CustomLoginView(LoginView):
     template_name = 'account/login.html'
@@ -47,13 +50,15 @@ class CustomLoginView(LoginView):
 
 def home(request):
     slides = Slide.objects.filter(ativo=True).order_by('ordem')
-    box_produtos = BoxProduto.objects.filter(ativo=True)
+    box_produtos = BoxProduto.objects.filter(ativo=True)[:6]  # Mostra apenas os 9 primeiros inicialmente
+    box_produtos_total = BoxProduto.objects.filter(ativo=True).count()
     produtos = Produto.objects.filter(ativo=True)
     unidades = Unidade.objects.all()
 
     context = {
         'slides': slides,
         'box_produtos': box_produtos,
+        'box_produtos_total': box_produtos_total,
         'produtos': produtos,
         'unidades': unidades,
     }
@@ -187,3 +192,28 @@ def custom_logout(request):
     logout(request)  # Destroi a sessão
     request.session.flush()  # Garante remoção total de cookies/sessão
     return render(request, 'operadora/logout.html')
+
+#view do carregar mais
+def load_more_products(request):
+    offset = int(request.GET.get('offset', 0))
+    limit = 6  # Mesmo número usado no JavaScript
+    
+    products = BoxProduto.objects.filter(ativo=True).order_by('id')[offset:offset+limit]
+    
+    products_list = []
+    for product in products:
+        products_list.append({
+            'id': product.id,
+            'titulo': product.titulo,
+            'descricao': product.descricao,
+            'imagem': product.imagem.url if product.imagem else '',
+            'tipo': product.tipo,
+            'tipo_display': product.get_tipo_display(),
+            'url': '#',  # Substitua pela URL real se necessário
+        })
+    
+    return JsonResponse({
+        'produtos': products_list,
+        'has_more': BoxProduto.objects.filter(ativo=True).count() > offset + limit
+
+    })
